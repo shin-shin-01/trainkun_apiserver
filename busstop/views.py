@@ -12,7 +12,7 @@ class BusstopListCreateAPIView(generics.ListCreateAPIView):
     queryset = Busstop.objects.all()
     serializer_class = BusstopSerializer
 
-class BusstopRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyPIView):
+class BusstopRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     """バス停モデルの取得（詳細）・更新・一部更新・削除APIクラス"""
     queryset = Busstop.objects.all()
     serializer_class = BusstopSerializer
