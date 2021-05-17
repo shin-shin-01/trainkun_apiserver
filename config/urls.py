@@ -15,12 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-import busstop
+import busstop.views as busstop_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     # バス停モデルの取得（一覧）・登録
-    path('api/busstops/', busstop.views.BusstopListCreateAPIView.as_view()),
+    path('api/busstops/', busstop_views.BusstopListCreateAPIView.as_view()),
     # バス停モデルの取得（詳細）・更新・一部更新・削除
-    path('api/busstops/<pk>/', busstop.views.BusstopRetrieveUpdateDestroyAPIView.as_view()),
+    path('api/busstops/<pk>/', busstop_views.BusstopRetrieveUpdateDestroyAPIView.as_view()),
 ]
