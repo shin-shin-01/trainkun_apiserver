@@ -19,19 +19,23 @@ class TEstBusstopSerializer(TestCase):
         # バリデーションの結果を検証
         self.assertEqual(serializer.is_valid(), True)
 
-    def test_input_invalid_if_name_is_blank(self):
-        """入力データのバリデーション（NG：nameが空文字）"""
+    def test_input_invalid_if_required_params_is_blank(self):
+        """入力データのバリデーション（NG：name, codeが空文字）"""
         # シリアライザを作成
         input_data = {
             'name': '',
-            'code': '00000000',
+            'code': '',
         }
         serializer = BusstopSerializer(data=input_data)
         # バリデーションの結果を検証
         self.assertEqual(serializer.is_valid(), False)
-        self.assertCountEqual(serializer.errors.keys(), ['name'])
+        self.assertCountEqual(serializer.errors.keys(), ['name', 'code'])
         self.assertCountEqual(
             [str(x) for x in serializer.errors['name']],
+            ["This field may not be blank."],
+        )
+        self.assertCountEqual(
+            [str(x) for x in serializer.errors['code']],
             ["This field may not be blank."],
         )
 
