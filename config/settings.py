@@ -51,6 +51,22 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+
+REST_FRAMEWORK = {
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.AnonRateThrottle',
+        'rest_framework.throttling.UserRateThrottle',
+    ],
+    # スロットリング
+    # 一定時間内に利用できるリクエストの回数制限を行い
+    # サーバーが高負荷になることを防ぐ, ブルートフォースを防ぐ
+    # - Error: [ 429 Too Many Requests ]
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '20/minutes', # 認証していないユーザ
+        'user': '1500/hour'   # 認証済みユーザ
+    },
+}
+
 ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
