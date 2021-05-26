@@ -62,7 +62,7 @@ REST_FRAMEWORK = {
     # サーバーが高負荷になることを防ぐ, ブルートフォースを防ぐ
     # - Error: [ 429 Too Many Requests ]
     'DEFAULT_THROTTLE_RATES': {
-        'anon': '20/minutes', # 認証していないユーザ
+        'anon': '20/minutes',  # 認証していないユーザ
         'user': '1500/hour'   # 認証済みユーザ
     },
 }

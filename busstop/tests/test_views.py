@@ -5,9 +5,10 @@ from ..models import Busstop
 from ..serializers import BusstopSerializer
 from ..factories import BusstopFactory
 
+
 class TestBusstopListCreateAPIView(APITestCase):
     """BusstopListCreateAPIViewのテストクラス"""
-    
+
     TARGET_URL = '/api/busstops/'
 
     def test_create_success(self):
@@ -56,6 +57,7 @@ class TestBusstopListCreateAPIView(APITestCase):
         busstop = BusstopSerializer(busstop)
         self.assertJSONEqual(response.content, [busstop.data])
 
+
 class TestBusstopRetrieveUpdateDestroyAPIView(APITestCase):
     """BusstopRetrieveUpdateDestroyAPIViewのテストクラス"""
 
@@ -71,7 +73,9 @@ class TestBusstopRetrieveUpdateDestroyAPIView(APITestCase):
     def test_get_success(self):
         """バス停モデル取得（詳細）APIへのGETリクエスト（正常系）"""
         # APIリクエスト
-        response = self.client.get(self.TARGET_URL_WITH_PK.format(self.busstop.id), format='json')
+        response = self.client.get(
+            self.TARGET_URL_WITH_PK.format(
+                self.busstop.id), format='json')
         # レスポンスの内容検証
         self.assertEqual(response.status_code, 200)
         self.assertJSONEqual(response.content, self.busstop_serializer.data)
@@ -79,7 +83,9 @@ class TestBusstopRetrieveUpdateDestroyAPIView(APITestCase):
     def test_get_not_found(self):
         """バス停モデル取得（詳細）APIへのGETリクエスト（異常系：対象のバス停レコードが存在しない）"""
         # APIリクエスト
-        response = self.client.get(self.TARGET_URL_WITH_PK.format(self.busstop.id + 1), format='json')
+        response = self.client.get(
+            self.TARGET_URL_WITH_PK.format(
+                self.busstop.id + 1), format='json')
         # レスポンスの内容検証
         self.assertEqual(response.status_code, 404)
 
@@ -89,7 +95,9 @@ class TestBusstopRetrieveUpdateDestroyAPIView(APITestCase):
             'name': 'new_name'
         }
         # APIリクエスト
-        response = self.client.patch(self.TARGET_URL_WITH_PK.format(self.busstop.id), params, format='json')
+        response = self.client.patch(
+            self.TARGET_URL_WITH_PK.format(
+                self.busstop.id), params, format='json')
         # レスポンスの内容検証
         self.assertEqual(response.status_code, 200)
         expected_json_dict = {
@@ -106,7 +114,9 @@ class TestBusstopRetrieveUpdateDestroyAPIView(APITestCase):
             'code': 'new_code',
         }
         # APIリクエスト
-        response = self.client.put(self.TARGET_URL_WITH_PK.format(self.busstop.id), params, format='json')
+        response = self.client.put(
+            self.TARGET_URL_WITH_PK.format(
+                self.busstop.id), params, format='json')
         # レスポンスの内容検証
         self.assertEqual(response.status_code, 200)
         expected_json_dict = {
@@ -122,14 +132,18 @@ class TestBusstopRetrieveUpdateDestroyAPIView(APITestCase):
             'name': ''
         }
         # APIリクエスト
-        response = self.client.patch(self.TARGET_URL_WITH_PK.format(self.busstop.id), params, format='json')
+        response = self.client.patch(
+            self.TARGET_URL_WITH_PK.format(
+                self.busstop.id), params, format='json')
         # レスポンスの内容検証
         self.assertEqual(response.status_code, 400)
 
     def test_delete_success(self):
         """バス停モデル削除APIへのPUTリクエスト（正常系）"""
         # APIリクエスト
-        response = self.client.delete(self.TARGET_URL_WITH_PK.format(self.busstop.id), format='json')
+        response = self.client.delete(
+            self.TARGET_URL_WITH_PK.format(
+                self.busstop.id), format='json')
         # レスポンスの内容検証
         self.assertEqual(response.status_code, 204)
         # データベースの状態を検証
