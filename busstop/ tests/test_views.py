@@ -2,6 +2,8 @@ from django.utils.timezone import localtime
 from rest_framework.test import APITestCase
 
 from ..models import Busstop
+from ..serializers import BusstopSerializer
+from ..factories import BusstopFactory
 
 class TestBusstopListCreateAPIView(APITestCase):
     """BusstopListCreateAPIViewのテストクラス"""
@@ -41,3 +43,15 @@ class TestBusstopListCreateAPIView(APITestCase):
         self.assertEqual(Busstop.objects.count(), 0)
         # レスポンスの内容を検証
         self.assertEqual(response.status_code, 400)
+
+    def test_get_success(self):
+        """バス停モデル取得APIへのGETリクエスト（正常系）"""
+        # ダミーのデータ作成
+        BusstopFactory()
+        # APIリクエスト
+        response = self.client.get(self.TARGET_URL, format='json')
+        # レスポンスの内容を検証
+        self.assertEqual(response.status_code, 200)
+        busstop = Busstop.objects.get()
+        busstop = BusstopSerializer(busstop)
+        self.assertJSONEqual(response.content, [busstop.data])
