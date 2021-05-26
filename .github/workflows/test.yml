@@ -2,8 +2,7 @@
 
 name: Django test CI
 
-# TODO: fix this when resolved
-on: [push]
+on: [pull_request]
 
 jobs:
   test:
