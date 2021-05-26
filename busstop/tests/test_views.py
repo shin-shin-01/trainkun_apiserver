@@ -55,3 +55,82 @@ class TestBusstopListCreateAPIView(APITestCase):
         busstop = Busstop.objects.get()
         busstop = BusstopSerializer(busstop)
         self.assertJSONEqual(response.content, [busstop.data])
+
+class TestBusstopRetrieveUpdateDestroyAPIView(APITestCase):
+    """BusstopRetrieveUpdateDestroyAPIViewのテストクラス"""
+
+    TARGET_URL_WITH_PK = '/api/busstops/{}/'
+
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        # ダミーのデータ作成
+        cls.busstop = BusstopFactory()
+        cls.busstop_serializer = BusstopSerializer(cls.busstop)
+
+    def test_get_success(self):
+        """バス停モデル取得（詳細）APIへのGETリクエスト（正常系）"""
+        # APIリクエスト
+        response = self.client.get(self.TARGET_URL_WITH_PK.format(self.busstop.id), format='json')
+        # レスポンスの内容検証
+        self.assertEqual(response.status_code, 200)
+        self.assertJSONEqual(response.content, self.busstop_serializer.data)
+
+    def test_get_not_found(self):
+        """バス停モデル取得（詳細）APIへのGETリクエスト（異常系：対象のバス停レコードが存在しない）"""
+        # APIリクエスト
+        response = self.client.get(self.TARGET_URL_WITH_PK.format(self.busstop.id + 1), format='json')
+        # レスポンスの内容検証
+        self.assertEqual(response.status_code, 404)
+
+    def test_part_update_success(self):
+        """バス停モデル一部更新APIへのPUTリクエスト（正常系）"""
+        params = {
+            'name': 'new_name'
+        }
+        # APIリクエスト
+        response = self.client.patch(self.TARGET_URL_WITH_PK.format(self.busstop.id), params, format='json')
+        # レスポンスの内容検証
+        self.assertEqual(response.status_code, 200)
+        expected_json_dict = {
+            'id': self.busstop.id,
+            'name': params['name'],
+            'code': str(self.busstop.code),
+        }
+        self.assertJSONEqual(response.content, expected_json_dict)
+
+    def test_all_update_success(self):
+        """バス停モデル更新APIへのPUTリクエスト（正常系）"""
+        params = {
+            'name': 'new_name',
+            'code': 'new_code',
+        }
+        # APIリクエスト
+        response = self.client.put(self.TARGET_URL_WITH_PK.format(self.busstop.id), params, format='json')
+        # レスポンスの内容検証
+        self.assertEqual(response.status_code, 200)
+        expected_json_dict = {
+            'id': self.busstop.id,
+            'name': params['name'],
+            'code': params['code'],
+        }
+        self.assertJSONEqual(response.content, expected_json_dict)
+
+    def test_part_update_bad_request(self):
+        """バス停モデル一部更新APIへのPUTリクエスト（異常系：バリデーションNG）"""
+        params = {
+            'name': ''
+        }
+        # APIリクエスト
+        response = self.client.patch(self.TARGET_URL_WITH_PK.format(self.busstop.id), params, format='json')
+        # レスポンスの内容検証
+        self.assertEqual(response.status_code, 400)
+
+    def test_delete_success(self):
+        """バス停モデル削除APIへのPUTリクエスト（正常系）"""
+        # APIリクエスト
+        response = self.client.delete(self.TARGET_URL_WITH_PK.format(self.busstop.id), format='json')
+        # レスポンスの内容検証
+        self.assertEqual(response.status_code, 204)
+        # データベースの状態を検証
+        self.assertEqual(Busstop.objects.count(), 0)
