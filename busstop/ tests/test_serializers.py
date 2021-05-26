@@ -49,7 +49,7 @@ class TEstBusstopSerializer(TestCase):
         serializer = BusstopSerializer(instance=busstop)
         # シリアライザの出力内容を検証
         expected_data = {
-            'id': str(busstop.id),
+            'id': busstop.id,
             'name': busstop.name,
             'code': busstop.code,
         }

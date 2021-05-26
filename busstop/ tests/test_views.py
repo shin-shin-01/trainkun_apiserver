@@ -22,7 +22,7 @@ class TestBusstopListCreateAPIView(APITestCase):
         self.assertEqual(response.status_code, 201)
         busstop = Busstop.objects.get()
         expected_json_dict = {
-            'id': str(busstop.id),
+            'id': busstop.id,
             'name': busstop.name,
             'code': busstop.code,
             # 'created_at': str(localtime(busstop.created_at)).replace(' ', 'T'),
