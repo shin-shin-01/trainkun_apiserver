@@ -5,6 +5,7 @@ from rest_framework import serializers
 from ..models import Busstop
 from ..serializers import BusstopSerializer
 
+
 class TestBusstopSerializer(TestCase):
     """BusstopSerializerのテストクラス"""
 

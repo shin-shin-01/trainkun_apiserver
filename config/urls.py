@@ -22,5 +22,7 @@ urlpatterns = [
     # バス停モデルの取得（一覧）・登録
     path('api/busstops/', busstop_views.BusstopListCreateAPIView.as_view()),
     # バス停モデルの取得（詳細）・更新・一部更新・削除
-    path('api/busstops/<pk>/', busstop_views.BusstopRetrieveUpdateDestroyAPIView.as_view()),
+    path(
+        'api/busstops/<pk>/',
+        busstop_views.BusstopRetrieveUpdateDestroyAPIView.as_view()),
 ]
