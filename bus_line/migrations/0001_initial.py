@@ -14,16 +14,32 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='BusLine',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=50, unique=True, verbose_name='名称')),
-                ('code', models.CharField(max_length=20, unique=True, verbose_name='コード')),
-                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='登録日時')),
+                ('id',
+                 models.BigAutoField(
+                     auto_created=True,
+                     primary_key=True,
+                     serialize=False,
+                     verbose_name='ID')),
+                ('name',
+                 models.CharField(
+                     max_length=50,
+                     unique=True,
+                     verbose_name='名称')),
+                ('code',
+                 models.CharField(
+                     max_length=20,
+                     unique=True,
+                     verbose_name='コード')),
+                ('created_at',
+                 models.DateTimeField(
+                     auto_now_add=True,
+                     verbose_name='登録日時')),
             ],
             options={
                 'verbose_name': 'バス路線',
                 'verbose_name_plural': 'バス路線',
-                'db_table': 'bus_line',
-                'ordering': ['created_at'],
+                                'db_table': 'bus_line',
+                                'ordering': ['created_at'],
             },
         ),
     ]
