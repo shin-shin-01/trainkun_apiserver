@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'busstop',
     'bus_line',
+    'bus_pair',
 ]
 
 MIDDLEWARE = [

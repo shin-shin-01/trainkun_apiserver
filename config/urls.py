@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path
 import busstop.views as busstop_views
 import bus_line.views as bus_line_views
+import bus_pair.views as bus_pair_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -32,4 +33,10 @@ urlpatterns = [
     path(
         'api/bus_lines/<pk>/',
         bus_line_views.BusLineRetrieveUpdateDestroyAPIView.as_view()),
+    # バス組み合わせモデルの取得（一覧）・登録
+    path('api/bus_pairs/', bus_pair_views.BusPairListCreateAPIView.as_view()),
+    # バス組み合わせモデルの取得（詳細）・更新・一部更新・削除
+    path(
+        'api/bus_pairs/<pk>/',
+        bus_pair_views.BusPairRetrieveUpdateDestroyAPIView.as_view()),
 ]
