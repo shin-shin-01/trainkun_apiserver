@@ -27,6 +27,3 @@ class BusTimetable(models.Model):
     departure_at = models.DateTimeField(verbose_name='出発日時')
     arrive_at = models.DateTimeField(verbose_name='到着日時')
     created_at = models.DateTimeField(verbose_name='登録日時', auto_now_add=True)
-
-    def __str__(self):
-        return self
