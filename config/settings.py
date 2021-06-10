@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import sys
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -68,6 +69,11 @@ REST_FRAMEWORK = {
         'user': '1500/hour'   # 認証済みユーザ
     },
 }
+
+# テスト実行時にスロットリングの設定を削除
+TESTING = len(sys.argv) > 1 and sys.argv[1] == 'test'
+if TESTING:
+  del REST_FRAMEWORK['DEFAULT_THROTTLE_RATES']
 
 ROOT_URLCONF = 'config.urls'
 
