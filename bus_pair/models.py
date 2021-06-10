@@ -27,6 +27,3 @@ class BusPair(models.Model):
         on_delete=models.PROTECT,
         related_name="arrival_bus_stop")
     created_at = models.DateTimeField(verbose_name='登録日時', auto_now_add=True)
-
-    def __str__(self):
-        return self
