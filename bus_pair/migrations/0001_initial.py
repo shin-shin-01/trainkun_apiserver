@@ -16,16 +16,36 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='BusPair',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='登録日時')),
-                ('arrival_bus_stop', models.ForeignKey(db_constraint=False, on_delete=django.db.models.deletion.PROTECT, related_name='arrival_bus_stop', to='busstop.busstop', verbose_name='到着バス停')),
-                ('departure_bus_stop', models.ForeignKey(db_constraint=False, on_delete=django.db.models.deletion.PROTECT, related_name='departure_bus_stop', to='busstop.busstop', verbose_name='出発バス停')),
+                ('id',
+                 models.BigAutoField(
+                     auto_created=True,
+                     primary_key=True,
+                     serialize=False,
+                     verbose_name='ID')),
+                ('created_at',
+                 models.DateTimeField(
+                     auto_now_add=True,
+                     verbose_name='登録日時')),
+                ('arrival_bus_stop',
+                 models.ForeignKey(
+                     db_constraint=False,
+                     on_delete=django.db.models.deletion.PROTECT,
+                     related_name='arrival_bus_stop',
+                     to='busstop.busstop',
+                     verbose_name='到着バス停')),
+                ('departure_bus_stop',
+                 models.ForeignKey(
+                     db_constraint=False,
+                     on_delete=django.db.models.deletion.PROTECT,
+                     related_name='departure_bus_stop',
+                     to='busstop.busstop',
+                     verbose_name='出発バス停')),
             ],
             options={
                 'verbose_name': 'バス組み合わせ',
                 'verbose_name_plural': 'バス組み合わせ',
-                'db_table': 'bus_pair',
-                'ordering': ['created_at'],
+                                'db_table': 'bus_pair',
+                                'ordering': ['created_at'],
             },
         ),
     ]

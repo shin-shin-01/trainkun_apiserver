@@ -19,8 +19,10 @@ class TestBusPairListCreateAPIView(APITestCase):
         # ダミーのデータ作成
         cls.departure_bus_stop = BusstopFactory()
         cls.arrival_bus_stop = BusstopFactory()
-        cls.departure_bus_stop_serializer = BusstopSerializer(instance=cls.departure_bus_stop)
-        cls.arrival_bus_stop_serializer = BusstopSerializer(instance=cls.arrival_bus_stop)
+        cls.departure_bus_stop_serializer = BusstopSerializer(
+            instance=cls.departure_bus_stop)
+        cls.arrival_bus_stop_serializer = BusstopSerializer(
+            instance=cls.arrival_bus_stop)
 
     def test_create_success(self):
         """バス組み合わせモデル登録APIへのPOSTリクエスト（正常系）"""
@@ -58,7 +60,7 @@ class TestBusPairListCreateAPIView(APITestCase):
     def test_create_bad_request_invalid_id(self):
         """バス組み合わせモデルの登録APIへのPOSTリクエスト（異常系：バリデーションNG)"""
         invalid_id = Busstop.objects.count() + 1
-        
+
         # APIリクエストを実行
         params = {
             'departure_bus_stop_id': invalid_id,
@@ -69,7 +71,6 @@ class TestBusPairListCreateAPIView(APITestCase):
         self.assertEqual(BusPair.objects.count(), 0)
         # レスポンスの内容を検証
         self.assertEqual(response.status_code, 400)
-
 
     def test_get_success(self):
         """バス組み合わせモデル取得APIへのGETリクエスト（正常系）"""

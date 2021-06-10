@@ -73,7 +73,7 @@ REST_FRAMEWORK = {
 # テスト実行時にスロットリングの設定を削除
 TESTING = len(sys.argv) > 1 and sys.argv[1] == 'test'
 if TESTING:
-  del REST_FRAMEWORK['DEFAULT_THROTTLE_RATES']
+    del REST_FRAMEWORK['DEFAULT_THROTTLE_RATES']
 
 ROOT_URLCONF = 'config.urls'
 
