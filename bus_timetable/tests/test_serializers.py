@@ -3,14 +3,14 @@ from django.utils.timezone import localtime
 from rest_framework import serializers
 from collections import OrderedDict
 
-from ..models import BusPair
-from ..serializers import BusPairSerializer
+from ..models import BusTimetable
+from ..serializers import BusTimetableSerializer
 from busstop.factories import BusstopFactory
 from busstop.serializers import BusstopSerializer
 
 
-class TestBusPairSerializer(TestCase):
-    """BusPairSerializerのテストクラス"""
+class TestBusTimetableSerializer(TestCase):
+    """BusTimetableSerializerのテストクラス"""
 
     def test_input_valid(self):
         """入力データのバリデーション（OK）"""
@@ -22,7 +22,7 @@ class TestBusPairSerializer(TestCase):
             'departure_bus_stop_id': departure_bus_stop.id,
             'arrival_bus_stop_id': arrival_bus_stop.id,
         }
-        serializer = BusPairSerializer(data=input_data)
+        serializer = BusTimetableSerializer(data=input_data)
         # バリデーションの結果を検証
         self.assertEqual(serializer.is_valid(), True)
 
@@ -39,15 +39,15 @@ class TestBusPairSerializer(TestCase):
             instance=arrival_bus_stop)
 
         # シリアライザを作成
-        bus_pair = BusPair.objects.create(
+        bus_timetable = BusTimetable.objects.create(
             departure_bus_stop=departure_bus_stop,
             arrival_bus_stop=arrival_bus_stop,
         )
-        serializer = BusPairSerializer(instance=bus_pair)
+        serializer = BusTimetableSerializer(instance=bus_timetable)
 
         # シリアライザの出力内容を検証
         expected_data = {
-            'id': bus_pair.id, 'departure_bus_stop': OrderedDict(
+            'id': bus_timetable.id, 'departure_bus_stop': OrderedDict(
                 departure_bus_stop_serializer.data), 'arrival_bus_stop': OrderedDict(
                 arrival_bus_stop_serializer.data), }
 

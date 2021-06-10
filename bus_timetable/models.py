@@ -4,13 +4,13 @@ from busstop.models import Busstop
 # https://stackoverflow.com/questions/60421962/django-change-foreign-keys-to-bigint
 
 
-class BusPair(models.Model):
-    """バス組み合わせモデル"""
+class BusTimetable(models.Model):
+    """バス時刻モデル"""
 
     class Meta:
-        db_table = 'bus_pair'
+        db_table = 'bus_timetable'
         ordering = ['created_at']
-        verbose_name = verbose_name_plural = 'バス組み合わせ'  # rm 's'
+        verbose_name = verbose_name_plural = 'バス時刻'  # rm 's'
 
     # set "db_constraint=False" cuz occurs error
     # "arrival_bus_stop_id" and "id" are of incompatible types: bigint and uuid.
