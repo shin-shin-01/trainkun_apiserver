@@ -3,6 +3,7 @@ from .models import BusTimetable
 from bus_pair.factories import BusPairFactory
 from bus_line.factories import BusLineFactory
 
+
 class BusTimetableFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = BusTimetable
