@@ -41,9 +41,11 @@ urlpatterns = [
         'api/bus_pairs/<pk>/',
         bus_pair_views.BusPairRetrieveUpdateDestroyAPIView.as_view()),
     # バス時刻モデルの取得（一覧）・登録
-    path('api/bus_timetables/', bus_timetables_views.BusTimetableListCreateAPIView.as_view()),
+    path(
+        'api/bus_timetables/',
+        bus_timetable_views.BusTimetableListCreateAPIView.as_view()),
     # バス時刻モデルの取得（詳細）・更新・一部更新・削除
     path(
         'api/bus_timetables/<pk>/',
-        bus_timetables_views.BusTimetableRetrieveUpdateDestroyAPIView.as_view()),
+        bus_timetable_views.BusTimetableRetrieveUpdateDestroyAPIView.as_view()),
 ]
