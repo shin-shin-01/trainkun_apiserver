@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='BusPair',
+            name='BusTimetable',
             fields=[
                 ('id',
                  models.BigAutoField(
@@ -42,9 +42,9 @@ class Migration(migrations.Migration):
                      verbose_name='出発バス停')),
             ],
             options={
-                'verbose_name': 'バス組み合わせ',
-                'verbose_name_plural': 'バス組み合わせ',
-                                'db_table': 'bus_pair',
+                'verbose_name': 'バス時刻',
+                'verbose_name_plural': 'バス時刻',
+                                'db_table': 'bus_timetable',
                                 'ordering': ['created_at'],
             },
         ),

@@ -1,7 +1,7 @@
 from typing import Any, Dict
 from django.db.models import fields
 from rest_framework import serializers
-from .models import BusPair
+from .models import BusTimetable
 from busstop.models import Busstop
 from busstop.serializers import BusstopSerializer
 
@@ -9,8 +9,8 @@ from busstop.serializers import BusstopSerializer
 # https://kimuson.dev/blog/django/drf_foreign_key_serializer/
 
 
-class BusPairSerializer(serializers.ModelSerializer):
-    """バス組み合わせモデル用のシリアライザ"""
+class BusTimetableSerializer(serializers.ModelSerializer):
+    """バス時刻モデル用のシリアライザ"""
     departure_bus_stop = BusstopSerializer(read_only=True)
     arrival_bus_stop = BusstopSerializer(read_only=True)
 
@@ -24,7 +24,7 @@ class BusPairSerializer(serializers.ModelSerializer):
     )
 
     class Meta:
-        model = BusPair
+        model = BusTimetable
         fields = [
             'id',
             'departure_bus_stop',
@@ -32,7 +32,7 @@ class BusPairSerializer(serializers.ModelSerializer):
             'departure_bus_stop_id',
             'arrival_bus_stop_id']
 
-    def create(self, validated_data: Dict[str, Any]) -> BusPair:
+    def create(self, validated_data: Dict[str, Any]) -> BusTimetable:
         validated_data['departure_bus_stop'] = validated_data.get(
             'departure_bus_stop_id', None)
         validated_data['arrival_bus_stop'] = validated_data.get(
@@ -49,6 +49,6 @@ class BusPairSerializer(serializers.ModelSerializer):
         return super().create(validated_data)
 
 
-class BusPairListSerializer(serializers.ListSerializer):
-    """複数のバス組み合わせモデルを扱うためのシリアライザ"""
-    child = BusPairSerializer()
+class BusTimetableListSerializer(serializers.ListSerializer):
+    """複数のバス時刻モデルを扱うためのシリアライザ"""
+    child = BusTimetableSerializer()

@@ -1,11 +1,11 @@
 import factory
-from .models import BusPair
+from .models import BusTimetable
 from busstop.factories import BusstopFactory
 
 
-class BusPairFactory(factory.django.DjangoModelFactory):
+class BusTimetableFactory(factory.django.DjangoModelFactory):
     class Meta:
-        model = BusPair
+        model = BusTimetable
 
     departure_bus_stop = factory.SubFactory(BusstopFactory)
     arrival_bus_stop = factory.SubFactory(BusstopFactory)
