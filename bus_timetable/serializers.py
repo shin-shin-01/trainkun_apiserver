@@ -2,24 +2,23 @@ from typing import Any, Dict
 from django.db.models import fields
 from rest_framework import serializers
 from .models import BusTimetable
-from busstop.models import Busstop
-from busstop.serializers import BusstopSerializer
-
-# DRFでシリアライザのForeignKeyフィールドをPOST時はプライマリーキーを渡し、GET時は展開する
-# https://kimuson.dev/blog/django/drf_foreign_key_serializer/
+from bus_pair.models import BusPair
+from bus_pair.serializers import BusPairSerializer
+from bus_line.models import BusLine
+from bus_line.serializers import BusLineSerializer
 
 
 class BusTimetableSerializer(serializers.ModelSerializer):
     """バス時刻モデル用のシリアライザ"""
-    departure_bus_stop = BusstopSerializer(read_only=True)
-    arrival_bus_stop = BusstopSerializer(read_only=True)
+    bus_pair = BusPairSerializer(read_only=True)
+    bus_line = BusLineSerializer(read_only=True)
 
-    departure_bus_stop_id = serializers.PrimaryKeyRelatedField(
-        queryset=Busstop.objects.all(),
+    bus_pair_id = serializers.PrimaryKeyRelatedField(
+        queryset=BusPair.objects.all(),
         write_only=True
     )
-    arrival_bus_stop_id = serializers.PrimaryKeyRelatedField(
-        queryset=Busstop.objects.all(),
+    bus_line_id = serializers.PrimaryKeyRelatedField(
+        queryset=BusLine.objects.all(),
         write_only=True
     )
 
@@ -27,24 +26,24 @@ class BusTimetableSerializer(serializers.ModelSerializer):
         model = BusTimetable
         fields = [
             'id',
-            'departure_bus_stop',
-            'arrival_bus_stop',
-            'departure_bus_stop_id',
-            'arrival_bus_stop_id']
+            'bus_pair',
+            'bus_line',
+            'bus_pair_id',
+            'bus_line_id']
 
     def create(self, validated_data: Dict[str, Any]) -> BusTimetable:
-        validated_data['departure_bus_stop'] = validated_data.get(
-            'departure_bus_stop_id', None)
-        validated_data['arrival_bus_stop'] = validated_data.get(
-            'arrival_bus_stop_id', None)
+        validated_data['bus_pair'] = validated_data.get(
+            'bus_pair_id', None)
+        validated_data['bus_line'] = validated_data.get(
+            'bus_line_id', None)
 
-        if validated_data['departure_bus_stop'] is None:
-            raise serializers.ValidationError("departure_bus_stop not found.")
-        if validated_data['arrival_bus_stop'] is None:
-            raise serializers.ValidationError("arrival_bus_stop not found.")
+        if validated_data['bus_pair'] is None:
+            raise serializers.ValidationError("bus_pair not found.")
+        if validated_data['bus_line'] is None:
+            raise serializers.ValidationError("bus_line not found.")
 
-        del validated_data['departure_bus_stop_id']
-        del validated_data['arrival_bus_stop_id']
+        del validated_data['bus_pair_id']
+        del validated_data['bus_line_id']
 
         return super().create(validated_data)
 
