@@ -18,6 +18,7 @@ from django.urls import path
 import busstop.views as busstop_views
 import bus_line.views as bus_line_views
 import bus_pair.views as bus_pair_views
+import bus_timetable.views as bus_timetable_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -39,4 +40,10 @@ urlpatterns = [
     path(
         'api/bus_pairs/<pk>/',
         bus_pair_views.BusPairRetrieveUpdateDestroyAPIView.as_view()),
+    # バス時刻モデルの取得（一覧）・登録
+    path('api/bus_timetables/', bus_timetables_views.BusTimetableListCreateAPIView.as_view()),
+    # バス時刻モデルの取得（詳細）・更新・一部更新・削除
+    path(
+        'api/bus_timetables/<pk>/',
+        bus_timetables_views.BusTimetableRetrieveUpdateDestroyAPIView.as_view()),
 ]
