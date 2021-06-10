@@ -1,4 +1,4 @@
-import pytz
+from datetime import timedelta, timezone
 from django.test import TestCase
 from django.utils.timezone import localtime
 from rest_framework import serializers
@@ -13,7 +13,8 @@ from bus_line.factories import BusLineFactory
 from bus_line.serializers import BusLineSerializer
 
 FAKE = faker.Faker()
-jst = pytz.timezone('Asia/Tokyo')
+# タイムゾーンの生成
+JST = timezone(timedelta(hours=+9), 'JST')
 
 
 class TestBusTimetableSerializer(TestCase):
@@ -23,8 +24,8 @@ class TestBusTimetableSerializer(TestCase):
         """入力データのバリデーション（OK）"""
         bus_pair = BusPairFactory()
         bus_line = BusLineFactory()
-        departure_at = FAKE.date_time(tzinfo=jst)
-        arrive_at = FAKE.date_time(tzinfo=jst)
+        departure_at = FAKE.date_time(tzinfo=JST)
+        arrive_at = FAKE.date_time(tzinfo=JST)
 
         # シリアライザを作成
         input_data = {
@@ -50,8 +51,8 @@ class TestBusTimetableSerializer(TestCase):
             instance=bus_line)
 
         departure_at = FAKE.date_time(
-            tzinfo=jst).strftime("%Y-%m-%d %H:%M:%S%z")
-        arrive_at = FAKE.date_time(tzinfo=jst).strftime("%Y-%m-%d %H:%M%:%S%z")
+            tzinfo=JST).isoformat()
+        arrive_at = FAKE.date_time(tzinfo=JST).isoformat()
 
         # シリアライザを作成
         bus_timetable = BusTimetable.objects.create(
