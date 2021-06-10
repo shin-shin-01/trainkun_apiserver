@@ -29,7 +29,10 @@ class BusTimetableSerializer(serializers.ModelSerializer):
             'bus_pair',
             'bus_line',
             'bus_pair_id',
-            'bus_line_id']
+            'bus_line_id',
+            'departure_at',
+            'arrive_at',
+        ]
 
     def create(self, validated_data: Dict[str, Any]) -> BusTimetable:
         validated_data['bus_pair'] = validated_data.get(
