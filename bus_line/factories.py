@@ -8,4 +8,4 @@ class BusLineFactory(factory.django.DjangoModelFactory):
         model = BusLine
 
     name = factory.Faker('name')
-    code = random.randrange(10**0, 10**8)
+    code = factory.Faker('ean13')
