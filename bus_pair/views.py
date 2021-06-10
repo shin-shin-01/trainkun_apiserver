@@ -7,6 +7,7 @@ from .serializers import BusPairSerializer
 
 logger = logging.getLogger(__name__)
 
+
 class BusPairListCreateAPIView(generics.ListCreateAPIView):
     """バス組み合わせモデルの取得（一覧）・登録APIクラス"""
     queryset = BusPair.objects.all()
