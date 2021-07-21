@@ -106,7 +106,7 @@ DATABASES = {
         'NAME': 'postgres',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
-        'HOST': '127.0.0.1',
+        'HOST': '127.0.0.1' if 'test' in sys.argv else 'db',
         'PORT': 5432,
         'TEST': {
             'NAME': 'test_postgres',
