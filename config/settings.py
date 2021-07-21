@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'bus_line',
     'bus_pair',
     'bus_timetable',
+    'bus_timetable_bulk',
 ]
 
 MIDDLEWARE = [

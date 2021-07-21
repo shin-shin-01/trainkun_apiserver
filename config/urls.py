@@ -19,6 +19,7 @@ import busstop.views as busstop_views
 import bus_line.views as bus_line_views
 import bus_pair.views as bus_pair_views
 import bus_timetable.views as bus_timetable_views
+import bus_timetable_bulk.views as bus_timetable_bulk_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -48,4 +49,7 @@ urlpatterns = [
     path(
         'api/bus_timetables/<pk>/',
         bus_timetable_views.BusTimetableRetrieveUpdateDestroyAPIView.as_view()),
+    # バス時刻モデル一括登録
+    path('api/bus_timetable_bulk/',
+         bus_timetable_bulk_views.BusTimetableBulkCreateAPIView.as_view())
 ]
